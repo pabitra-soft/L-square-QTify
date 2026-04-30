@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+:root {
+  --black: #121212;
+  --green: #34C94B;
+}
 
 .App {
   text-align: center;

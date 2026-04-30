@@ -1,0 +1,40 @@
+.section {
+  padding: 40px 60px;
+  background-color: #121212;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.collapseButton {
+  background: none;
+  border: 2px solid #34C94B;
+  color: #34C94B;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.collapseButton:hover {
+  background-color: #34C94B;
+  color: #000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
