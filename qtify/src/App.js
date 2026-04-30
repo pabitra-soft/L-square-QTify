@@ -9,6 +9,13 @@ function App() {
       <Hero />
       <Section title="Top Albums" fetchUrl="https://qtify-backend.labs.crio.do/albums/top" />
       <Section title="New Albums" fetchUrl="https://qtify-backend.labs.crio.do/albums/new" />
+      
+      {/* Songs Section - special mode */}
+      <Section 
+        title="Songs" 
+        fetchUrl="https://qtify-backend.labs.crio.do/songs" 
+        isSongsSection={true} 
+      />
     </>
   );
 }

@@ -2,7 +2,10 @@ import React from 'react';
 import { Card as MuiCard, CardMedia, Typography, Chip, Box } from '@mui/material';
 import styles from './Card.module.css';
 
-const Card = ({ image, title, follows }) => {
+const Card = ({ image, title, follows, likes, isSong = false }) => {
+  const count = isSong ? likes : follows;
+  const label = isSong ? `${count} Likes` : `${count} Follows`;
+
   return (
     <MuiCard className={styles.card}>
       <Box className={styles.imageContainer}>
@@ -13,7 +16,7 @@ const Card = ({ image, title, follows }) => {
           className={styles.cardImage}
         />
         <Chip
-          label={`${follows} Follows`}
+          label={label}
           className={styles.followChip}
           sx={{
             backgroundColor: '#121212',
