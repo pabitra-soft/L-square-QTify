@@ -38,3 +38,19 @@
   gap: 24px;
   justify-items: center;
 }
+
+.toggleButton {
+  background: none;
+  border: 2px solid #34C94B;
+  color: #34C94B;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.toggleButton:hover {
+  background-color: #34C94B;
+  color: #000;
+}

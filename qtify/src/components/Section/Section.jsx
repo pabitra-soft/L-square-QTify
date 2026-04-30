@@ -1,51 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Typography from '@mui/material/Typography';   // ← This was missing!
+import Typography from '@mui/material/Typography';
 import Card from '../Card/Card';
+import Carousel from '../Carousel/Carousel';
+import { SwiperSlide } from 'swiper/react';   // ← This was missing!
 import styles from './Section.module.css';
 
-const Section = () => {
+const Section = ({ title, fetchUrl }) => {
   const [albums, setAlbums] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get('https://qtify-backend.labs.crio.do/albums/top');
+        const response = await axios.get(fetchUrl);
         setAlbums(response.data);
       } catch (error) {
         console.error('Error fetching albums:', error);
       }
     };
     fetchAlbums();
-  }, []);
-
-  const displayedAlbums = collapsed ? albums.slice(0, 4) : albums;
+  }, [fetchUrl]);
 
   return (
     <div className={styles.section}>
       <div className={styles.header}>
         <Typography variant="h5" className={styles.title}>
-          Top Albums
+          {title}
         </Typography>
         <button 
-          className={styles.collapseButton}
-          onClick={() => setCollapsed(!collapsed)}
+          className={styles.toggleButton}
+          onClick={() => setIsCollapsed(!isCollapsed)}
         >
-          {collapsed ? 'Show All' : 'Collapse'}
+          {isCollapsed ? 'Show All' : 'Collapse'}
         </button>
       </div>
 
-      <div className={styles.grid}>
-        {displayedAlbums.map((album) => (
-          <Card
-            key={album.id}
-            image={album.image}
-            title={album.title}
-            follows={album.follows}
-          />
-        ))}
-      </div>
+      {isCollapsed ? (
+        <Carousel>
+          {albums.map((album) => (
+            <SwiperSlide key={album.id}>
+              <Card
+                image={album.image}
+                title={album.title}
+                follows={album.follows}
+              />
+            </SwiperSlide>
+          ))}
+        </Carousel>
+      ) : (
+        <div className={styles.grid}>
+          {albums.map((album) => (
+            <Card
+              key={album.id}
+              image={album.image}
+              title={album.title}
+              follows={album.follows}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
