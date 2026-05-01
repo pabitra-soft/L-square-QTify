@@ -3,8 +3,8 @@ import { Swiper } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import LeftArrow from '../LeftArrow/LeftArrow';
-import RightArrow from '../RightArrow/RightArrow';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import styles from './Carousel.module.css';
 
 const Carousel = ({ children }) => {
@@ -16,7 +16,7 @@ const Carousel = ({ children }) => {
         className={styles.navButton}
         onClick={() => swiperRef.current?.slidePrev()}
       >
-        <LeftArrow />
+        <KeyboardArrowLeftIcon sx={{ fontSize: 32, color: '#fff' }} />
       </button>
 
       <Swiper
@@ -40,7 +40,7 @@ const Carousel = ({ children }) => {
         className={styles.navButton}
         onClick={() => swiperRef.current?.slideNext()}
       >
-        <RightArrow />
+        <KeyboardArrowRightIcon sx={{ fontSize: 32, color: '#fff' }} />
       </button>
     </div>
   );
