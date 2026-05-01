@@ -11,9 +11,9 @@ const Section = ({ title, fetchUrl, isSongsSection = false }) => {
   const [data, setData] = useState([]);
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('all');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showCarousel, setShowCarousel] = useState(false);   // ← Changed name for clarity
 
-  // Fetch data
+  // Fetch albums/songs
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,13 +26,13 @@ const Section = ({ title, fetchUrl, isSongsSection = false }) => {
     fetchData();
   }, [fetchUrl]);
 
-  // Fetch genres only for Songs section
+  // Fetch genres only for Songs
   useEffect(() => {
     if (isSongsSection) {
       const fetchGenres = async () => {
         try {
           const res = await axios.get('https://qtify-backend.labs.crio.do/genres');
-          setGenres(res.data.data || res.data); // handle both possible formats
+          setGenres(res.data.data || res.data);
         } catch (err) {
           console.error('Error fetching genres:', err);
         }
@@ -55,18 +55,18 @@ const Section = ({ title, fetchUrl, isSongsSection = false }) => {
           {title}
         </Typography>
 
-        {/* Only show Collapse/Show All for Albums */}
+        {/* Toggle button ONLY for Albums (Top & New) */}
         {!isSongsSection && (
           <button
             className={styles.toggleButton}
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={() => setShowCarousel(!showCarousel)}
           >
-            {isCollapsed ? 'Show All' : 'Collapse'}
+            {showCarousel ? 'Collapse' : 'Show All'}
           </button>
         )}
       </div>
 
-      {/* Tabs - only for Songs section */}
+      {/* Genre Tabs - ONLY for Songs section */}
       {isSongsSection && (
         <Tabs
           value={selectedGenre}
@@ -106,8 +106,8 @@ const Section = ({ title, fetchUrl, isSongsSection = false }) => {
         </Tabs>
       )}
 
-      {/* Grid or Carousel */}
-      {isCollapsed && !isSongsSection ? (
+      {/* Content: Grid or Carousel */}
+      {showCarousel && !isSongsSection ? (
         <Carousel>
           {filteredData.map((item) => (
             <SwiperSlide key={item.id}>
